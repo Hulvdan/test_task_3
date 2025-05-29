@@ -1,0 +1,29 @@
+---
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    command: sh src/start.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment: &env
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  db:
+    image: postgres:16.9-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      # TODO
+      - db_dataaa:/var/lib/postgresql/data/
+    environment: *env
+
+volumes:
+  db_dataaa:
